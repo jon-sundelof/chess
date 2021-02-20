@@ -5,8 +5,9 @@ export const squareid = (letter, number) => {
 
     }
 }
-export const decrement = () => {
+export const renderpieces = (square) => {
     return {
-        type: 'DECREMENT'
+        type: 'RERENDERPIECE',
+        payload: square
     }
 }

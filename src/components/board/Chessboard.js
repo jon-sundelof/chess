@@ -1,22 +1,38 @@
 import React, { useEffect, useState, useRef } from 'react'
 import '../../styles/Chessboard.css'
+import Pawn from '../pieces/white/pawn/Pawn'
+import King from '../pieces/white/king/King'
+import Queen from '../pieces/white/queen/Queen'
+import Rook from '../pieces/white/rook/Rook'
+import Knight from '../pieces/white/knight/Knight'
+import Bishop from '../pieces/white/bishop/Bishop'
+
+import { renderpieces } from './actions'
+import { useDispatch, useSelector } from 'react-redux'
+import { CheckSquare } from './functions/BoardFunctions'
 
 import Square from './Square'
-import { letters, squarecolor, InitialBoardState } from './ChessboardData'
+import { letters, squarecolor, BoardStateArray } from './ChessboardData'
 
 const numbers = [8, 8, 8, 8, 8, 8, 8, 8, 7, 7, 7, 7, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 6, 5, 5, 5, 5, 5, 5, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1];
 
 const Chessboard = () => {
     const [squares, setSquares] = useState([])
     const squareRef = useRef([])
-    const [pawn, setPawn] = useState(true)
+    const dispatch = useDispatch()
 
+    /*   const CheckSquare = (num) => {
+          if (InitialBoardState[num][1] === 'pawn') {
+              return <Pawn key={num} />
+          } else if (InitialBoardState[num][1] === 'king') {
+              return <King />
+          }
+      }
+   */
 
     useEffect(() => {
         let newArr = [];
         let colorNum = 0;
-        let loopstate = 0;
-
 
         for (let i = 1; i < 65; i++) {
 
@@ -25,19 +41,18 @@ const Chessboard = () => {
             }
             colorNum++;
 
-            if (loopstate > 6) {
-                console.log('reached max')
-            } else {
-                loopstate++
-            }
+            let id = letters[0] + numbers[0]
+            let pawn = <Pawn id={id} />
+            let king = <King id={id} />
+            let queen = <Queen id={id} />
+            let rook = <Rook id={id} />
+            let knight = <Knight id={id} />
+            let bishop = <Bishop id={id} />
 
+            let num = i - 1;
+            let SquareState = CheckSquare(BoardStateArray, num, pawn, king, queen, rook, knight, bishop)
 
-
-            newArr.push(<Square InitialBoardState={InitialBoardState[loopstate][0]} pawn={pawn} i={i} squareRef={squareRef} numbers={numbers[0]} squarecolor={squarecolor[0]} letters={letters[0]} />)
-
-            /*      console.log(InitialBoardState) */
-
-            /* newArr.push(<div ref={el => squareRef.current[i] = el} style={{ backgroundColor: squarecolor[0] }} id={letters[0] + numbers[0]} >{letters[0] + numbers[0]}</div>) */
+            newArr.push(<Square DoStuff={DoStuff} SquareState={SquareState} i={i} squareRef={squareRef} numbers={numbers[0]} squarecolor={squarecolor[0]} letters={letters[0]} />)
 
             letters.push(letters[0])
             letters.splice(0, 1)
@@ -46,7 +61,6 @@ const Chessboard = () => {
             squarecolor.splice(0, 1)
 
             numbers.splice(0, 1)
-            setPawn(!pawn)
 
             /*  squareRef.current = squareRef.current.slice(0, numbers.length); ??? */
 
@@ -54,11 +68,11 @@ const Chessboard = () => {
         setSquares(newArr)
     }, [])
 
-
-    const DoStuff = () => {
-        console.log(squareRef.current[35])
-
+    const DoStuff = (e) => {
+        /*  console.log(squareRef.current[35]) */
         /* squareRef.current[64] */
+
+        console.log(e.target.closest('div'))
 
 
     }

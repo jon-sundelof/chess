@@ -1,0 +1,39 @@
+.piece-wrapper{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: 87.5px;
+    height: 100px;
+}
+
+.pawn-w {
+    width: 50px;
+    height: 50px;
+    
+    background-color: burlywood;
+    border-radius: 50%;
+
+    cursor: pointer;
+}
+
+
+.king-w {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.king-w-svg {
+    width: 125%;
+    height: 125%;
+}
+
+.queen-w {
+    width: 50px;
+    height: 50px;
+    
+    background-color: burlywood;
+    border-radius: 50%;
+
+    cursor: pointer;
+}

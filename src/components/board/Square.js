@@ -1,27 +1,23 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { squareid } from './actions'
+/* import { InitialBoardState } from './ChessboardData' */
 
-import Pawn from '../pieces/pawn/Pawn'
+/* import Pawn from '../pieces/pawn/Pawn' */
+/* import RenderPiece from './reducers/BoardState' */
 
 
 
-const Square = ({ letters, numbers, squarecolor, i, squareRef, pawn, InitialBoardState }) => {
+const Square = ({ letters, numbers, squarecolor, i, squareRef, SquareState, DoStuff }) => {
 
     const dispatch = useDispatch()
-
-
-
-
-    dispatch(squareid(letters, numbers))
+    let SquareId = dispatch(squareid(letters, numbers))
 
     return (
         <>
-            <div key={i} id={letters + numbers} ref={el => squareRef.current[i] = el} style={{ backgroundColor: squarecolor }}>
-                <div>
-                    {letters + numbers}
-                    {/*     {InitialBoardState === squareId && <Pawn />} */}
-                </div>
+            <div key={i} className="square-wrapper" id={letters + numbers} onClick={DoStuff} ref={el => squareRef.current[i] = el} style={{ backgroundColor: squarecolor }}>
+                {letters + numbers}
+                {SquareState}
             </div>
         </>
     )
