@@ -1,10 +1,19 @@
-export const squareid = (letter, number) => {
+export const squareid = (selectedpiece) => {
     return {
         type: 'SQUAREID',
-        payload: [letter, number]
+        payload: selectedpiece
 
     }
 }
+
+export const selectsquare = (selectedsquare) => {
+    return {
+        type: 'SELECTEDSQUARE',
+        payload: selectedsquare
+
+    }
+}
+
 export const renderpieces = (square) => {
     return {
         type: 'RERENDERPIECE',

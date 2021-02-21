@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import { BoardStateArray } from '../ChessboardData'
 
 const BoardState = (state = BoardStateArray, action) => {

@@ -14,3 +14,14 @@ export const CheckSquare = (BoardStateArray, num, pawn, king, queen, rook, knigh
         return bishop
     }
 }
+
+/* 
+const CheckIfActivePiece = (squareid, id) => {
+    if (squareid == id) return true
+    return false
+} */
+
+export const CheckIfActiveSquare = (squareid, id) => {
+    if (squareid == id) return true
+    return false
+}

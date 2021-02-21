@@ -7,9 +7,9 @@ import Rook from '../pieces/white/rook/Rook'
 import Knight from '../pieces/white/knight/Knight'
 import Bishop from '../pieces/white/bishop/Bishop'
 
-import { renderpieces } from './actions'
+import { squareid, selectsquare } from './actions'
 import { useDispatch, useSelector } from 'react-redux'
-import { CheckSquare } from './functions/BoardFunctions'
+import { CheckSquare, CheckIfActiveSquare } from './functions/BoardFunctions'
 
 import Square from './Square'
 import { letters, squarecolor, BoardStateArray } from './ChessboardData'
@@ -20,15 +20,6 @@ const Chessboard = () => {
     const [squares, setSquares] = useState([])
     const squareRef = useRef([])
     const dispatch = useDispatch()
-
-    /*   const CheckSquare = (num) => {
-          if (InitialBoardState[num][1] === 'pawn') {
-              return <Pawn key={num} />
-          } else if (InitialBoardState[num][1] === 'king') {
-              return <King />
-          }
-      }
-   */
 
     useEffect(() => {
         let newArr = [];
@@ -41,6 +32,7 @@ const Chessboard = () => {
             }
             colorNum++;
 
+
             let id = letters[0] + numbers[0]
             let pawn = <Pawn id={id} />
             let king = <King id={id} />
@@ -50,9 +42,9 @@ const Chessboard = () => {
             let bishop = <Bishop id={id} />
 
             let num = i - 1;
-            let SquareState = CheckSquare(BoardStateArray, num, pawn, king, queen, rook, knight, bishop)
+            let SquarePieceState = CheckSquare(BoardStateArray, num, pawn, king, queen, rook, knight, bishop)
 
-            newArr.push(<Square DoStuff={DoStuff} SquareState={SquareState} i={i} squareRef={squareRef} numbers={numbers[0]} squarecolor={squarecolor[0]} letters={letters[0]} />)
+            newArr.push(<Square SelectTargetedPiece={SelectTargetedPiece} SquarePieceState={SquarePieceState} i={i} squareRef={squareRef} numbers={numbers[0]} squarecolor={squarecolor[0]} letters={letters[0]} />)
 
             letters.push(letters[0])
             letters.splice(0, 1)
@@ -68,13 +60,14 @@ const Chessboard = () => {
         setSquares(newArr)
     }, [])
 
-    const DoStuff = (e) => {
-        /*  console.log(squareRef.current[35]) */
-        /* squareRef.current[64] */
 
-        console.log(e.target.closest('div'))
+    const SelectTargetedPiece = (e) => {
+        if (e.target.className == 'square-wrapper ') return
 
+        let SelectedPiece = e.target.closest('div').id;
+        console.log(e.target)
 
+        dispatch(squareid(SelectedPiece))
     }
 
     return (
@@ -82,7 +75,6 @@ const Chessboard = () => {
             <div className="chessboard">
                 {squares}
             </div>
-            <button onClick={DoStuff}>CLICKME</button>
         </div>
     )
 }
