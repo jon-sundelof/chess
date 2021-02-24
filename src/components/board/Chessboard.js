@@ -9,7 +9,7 @@ import Bishop from '../pieces/white/bishop/Bishop'
 
 import { squareid, selectsquare } from './actions'
 import { useDispatch, useSelector } from 'react-redux'
-import { CheckSquare, CheckIfActiveSquare } from './functions/BoardFunctions'
+import { CheckSquare, CheckForAvavilableMove } from './functions/BoardFunctions'
 
 import Square from './Square'
 import { letters, squarecolor, BoardStateArray } from './ChessboardData'
@@ -17,6 +17,9 @@ import { letters, squarecolor, BoardStateArray } from './ChessboardData'
 const numbers = [8, 8, 8, 8, 8, 8, 8, 8, 7, 7, 7, 7, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 6, 5, 5, 5, 5, 5, 5, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1];
 
 const Chessboard = () => {
+    const BoardState = useSelector(state => state.BoardState)
+    const SquareId = useSelector(state => state.SquareId)
+
     const [squares, setSquares] = useState([])
     const squareRef = useRef([])
     const dispatch = useDispatch()
@@ -44,6 +47,8 @@ const Chessboard = () => {
             let num = i - 1;
             let SquarePieceState = CheckSquare(BoardStateArray, num, pawn, king, queen, rook, knight, bishop)
 
+          /*   let avviablemove = onClick(id) */
+
             newArr.push(<Square SelectTargetedPiece={SelectTargetedPiece} SquarePieceState={SquarePieceState} i={i} squareRef={squareRef} numbers={numbers[0]} squarecolor={squarecolor[0]} letters={letters[0]} />)
 
             letters.push(letters[0])
@@ -70,11 +75,13 @@ const Chessboard = () => {
         dispatch(squareid(SelectedPiece))
     }
 
+
     return (
         <div className="chessboard-wrapper">
             <div className="chessboard">
                 {squares}
             </div>
+            <button>CHECK HERE FOR MOVES!</button>
         </div>
     )
 }
