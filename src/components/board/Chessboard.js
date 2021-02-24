@@ -7,7 +7,7 @@ import Rook from '../pieces/white/rook/Rook'
 import Knight from '../pieces/white/knight/Knight'
 import Bishop from '../pieces/white/bishop/Bishop'
 
-import { squareid, selectsquare } from './actions'
+import { squareid, selectsquare, availablemoves } from './actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { CheckSquare, CheckForAvavilableMove } from './functions/BoardFunctions'
 
@@ -73,6 +73,7 @@ const Chessboard = () => {
         console.log(e.target)
 
         dispatch(squareid(SelectedPiece))
+        dispatch(selectsquare(null))
     }
 
 
@@ -81,7 +82,7 @@ const Chessboard = () => {
             <div className="chessboard">
                 {squares}
             </div>
-            <button>CHECK HERE FOR MOVES!</button>
+            <button>MOVE PIECE</button>
         </div>
     )
 }

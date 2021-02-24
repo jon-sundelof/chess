@@ -1,4 +1,4 @@
-import { squareid } from "../actions"
+import { selectsquare, squareid } from "../actions"
 import { BoardStateArray } from "../ChessboardData"
 
 
@@ -31,10 +31,21 @@ export const CheckIfActiveSquare = (squareid, id) => {
 
 
 export const CheckForAvavilableMove = (BoardState, SquareId) => {
-
+    if(SquareId == null || SquareId == '') return
     let index = BoardState.findIndex((x) => x.square === SquareId);
+
     if(BoardState[index].piece == 'pawn'){   
-        return [BoardState[index - 8], BoardState[index - 16]]
+        if(BoardState[index].hasmoved){
+            return BoardState[index - 8];
+        } else {
+            return [BoardState[index - 8], BoardState[index - 16]]
+        }
     }
 
+}
+
+export const MovePiece = (squareid, selectedsquare, boardsstate) => {
+    let index = boardsstate.findIndex((x) => x.square === selectedsquare);
+
+    console.log(boardsstate[index])
 }

@@ -20,3 +20,10 @@ export const renderpieces = (square) => {
         payload: square
     }
 }
+
+export const availablemoves = (square) => {
+    return {
+        type: 'AVAILABLEMOVES',
+        payload: square
+    }
+}
